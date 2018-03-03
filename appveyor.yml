@@ -28,10 +28,6 @@ test_script:
     - ps: |
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
 
-after_test:
-    - ps: |
-        Invoke-AppveyorAfterTestTask -Author 'TheDscFan' -Owners 'The Awesome Dsc Inc.'
-
 #---------------------------------#
 #      deployment configuration   #
 #---------------------------------#
@@ -40,3 +36,13 @@ after_test:
 deploy_script:
   - ps: |
       Invoke-AppveyorAfterTestTask
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
+  artifact: prodsc-v$(appveyor_build_version).zip
+  draft: false
+  prerelease: false
+  on:
+    branch: master
