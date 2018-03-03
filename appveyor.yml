@@ -37,8 +37,8 @@ test_script:
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
     - git config --global credential.helper store
     - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
-    - git config --global user.email "Adminstrator@PSDSC.Lab"
-    - git config --global user.name "Adminstrator"
+    - git config --global user.email "Administrator@PSDSC.Lab"
+    - git config --global user.name "Administrator"
 
 #---------------------------------#
 #      deployment configuration   #
