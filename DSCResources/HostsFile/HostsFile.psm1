@@ -2,7 +2,8 @@
 function Test-TargetResource
 {
 	[OutputType([Boolean])]
-	param (
+	param
+    (
 	    [Parameter(Mandatory = $true)]
 	    [String]
 	    $HostName,
@@ -90,15 +91,15 @@ function Get-TargetResource
 	[OutputType([Hashtable])]
 	param
 	(
-	    [parameter(Mandatory = $true)]
+	    [Parameter(Mandatory = $true)]
 	    [string]
 	    $HostName,
 	
-	    [parameter(Mandatory = $true)]
+	    [Parameter(Mandatory = $true)]
 	    [string]
 	    $IPAddress,
 
-	    [parameter()]
+	    [Parameter()]
         [ValidateSet('Present','Absent')]
 	    [string]
 	    $Ensure = 'Present'
@@ -125,4 +126,3 @@ function Get-TargetResource
 }
 
 Export-ModuleMember -Function *-TargetResource
-
