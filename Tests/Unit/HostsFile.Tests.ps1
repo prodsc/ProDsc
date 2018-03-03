@@ -1,4 +1,4 @@
-#region HEADER
+﻿#region HEADER
 # Unit Test Template Version: 1.2.0
 $script:moduleRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 if ( (-not (Test-Path -Path (Join-Path -Path $script:moduleRoot -ChildPath 'DSCResource.Tests'))) -or `
@@ -16,7 +16,7 @@ $TestEnvironment = Initialize-TestEnvironment `
 #endregion HEADER
 
 function Invoke-TestCleanup {
-    Restore-TestEnvironment -TestEnvironment $TestEnvironment	    
+    Restore-TestEnvironment -TestEnvironment $TestEnvironment        
 }
 
 # Begin Testing
@@ -29,7 +29,7 @@ try
                 Mock -CommandName Set-Content
             }
 
-            Context 'A hosts file entry does not exist. It should.' {	
+            Context 'A hosts file entry does not exist. It should.' {    
                 $testParameters = @{
                     HostName  = 'TestServer102'
                     IPAddress = '172.16.102.102'
@@ -47,7 +47,7 @@ try
                 }
 
                 It 'Get function should return Ensure as absent.' {
-                    (Get-TargetResource @testParameters).Ensure | Should Be 'Absent'	
+                    (Get-TargetResource @testParameters).Ensure | Should Be 'Absent'    
                 }
 
                 It 'Test function should return false.' {
@@ -107,7 +107,7 @@ try
                 }
 
                 It 'Get function should return Ensure as present.' {
-                    (Get-TargetResource @testParameters).Ensure | Should Be 'Present'	
+                    (Get-TargetResource @testParameters).Ensure | Should Be 'Present'    
                 }
 
                 It 'Test function should return false.' {
@@ -153,3 +153,4 @@ finally
 {
     Invoke-TestCleanup
 }
+
