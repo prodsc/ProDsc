@@ -6,12 +6,20 @@ version: 1.0.{build}.0
 environment:
   NuGetAPIKey:
     secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
+  GitHubKey:
+    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
+
+skip_commits:
+  files:
+    - README.md
+  message: /updated readme.*|update readme.*s|update docs.*|update version.*|update appveyor.*/
 
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
 
     - ps: |
         Import-Module -Name "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
+        Install-Module -Name posh-git -Force
         Invoke-AppveyorInstallTask
 
 #---------------------------------#
@@ -27,6 +35,10 @@ build: false
 test_script:
     - ps: |
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
+    - git config --global credential.helper store
+    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
+    - git config --global user.email "Adminstrator@PSDSC.Lab"
+    - git config --global user.name "Adminstrator"
 
 #---------------------------------#
 #      deployment configuration   #
@@ -35,12 +47,13 @@ test_script:
 # scripts to run before deployment
 deploy_script:
   - ps: |
-      Invoke-AppveyorAfterTestTask
+      .\build.ps1
+      Invoke-AppveyorAfterTestTask      
 
 deploy:
   provider: GitHub
   auth_token:
-    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
+    secure: $($env:GitHubKey)
   artifact: /.*\.zip/
   draft: false
   prerelease: false
