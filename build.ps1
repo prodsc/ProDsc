@@ -1,5 +1,7 @@
 ﻿# This is where the module manifest lives
-$manifestPath = '.\ProDsc\ProDsc.psd1'
+$manifestPath = '.\ProDsc.psd1'
+$Manifest = Test-ModuleManifest $manifestPath
+
 
 # Start by importing the manifest to determine the version, then add 1 to the revision
 $manifest = Test-ModuleManifest -Path $manifestPath
