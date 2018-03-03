@@ -41,7 +41,7 @@ try
                     return @(
                         '# An example of a host file',
                         '',
-                        '172.16.102.1       Router',
+                        '172.16.102.1    Router',
                         '127.0.0.1  localhost',
                         ''
                     )
@@ -74,7 +74,7 @@ try
                         '# An example of a host file',
                         '',
                         '127.0.0.1  localhost',
-                        "$($testParameters.IPAddress)         $($testParameters.HostName)",
+                        "$($testParameters.IPAddress)    $($testParameters.HostName)",
                         ''
                     )
                 }
@@ -102,7 +102,7 @@ try
                         '# An example of a host file',
                         '',
                         '127.0.0.1  localhost',
-                        "$($testParameters.IPAddress)         $($testParameters.HostName)",
+                        "$($testParameters.IPAddress)    $($testParameters.HostName)",
                         ''
                     )
                 }
