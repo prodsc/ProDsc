@@ -41,7 +41,7 @@ deploy:
   provider: GitHub
   auth_token:
     secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
-  artifact: prodsc-v$(appveyor_build_version).zip
+  artifact: /.*\.zip/
   draft: false
   prerelease: false
   on:
