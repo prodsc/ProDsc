@@ -44,7 +44,7 @@ test_script:
 
 # scripts to run before deployment
 deploy_script:
-  - ps: . .\Tests\build.ps1
+  - ps: . .\build.ps1
   - ps: |      
       Invoke-AppveyorAfterTestTask      
 
