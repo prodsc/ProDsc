@@ -2,6 +2,11 @@
 #      environment configuration  #
 #---------------------------------#
 version: 1.0.{build}.0
+
+environment:
+  NuGetAPIKey:
+    secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
+
 install:
     - git clone https://github.com/PowerShell/DscResource.Tests
 
@@ -22,6 +27,10 @@ build: false
 test_script:
     - ps: |
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
+
+after_test_script:
+    - ps: |
+        Invoke-AppveyorAfterTestTask -Author 'TheDscFan' -Owners 'The Awesome Dsc Inc.'
 
 #---------------------------------#
 #      deployment configuration   #
