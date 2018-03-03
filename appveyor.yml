@@ -4,10 +4,8 @@
 version: 1.0.{build}.0
 
 environment:
-  NuGetAPIKey:
-    secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
   GitHubKey:
-    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
+    secure: 3lekYfC1aw4vvKr9EZ+0WrCdWrN/00te/NtKC3FUNDQeH8gjWT/i4B1FBxltbhC4
 
 skip_commits:
   files:
@@ -53,7 +51,7 @@ deploy_script:
 deploy:
   provider: GitHub
   auth_token:
-    secure: $($env:GitHubKey)
+    secure: 3lekYfC1aw4vvKr9EZ+0WrCdWrN/00te/NtKC3FUNDQeH8gjWT/i4B1FBxltbhC4
   artifact: /.*\.zip/
   draft: false
   prerelease: false
