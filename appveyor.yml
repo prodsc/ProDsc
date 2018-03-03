@@ -28,7 +28,7 @@ test_script:
     - ps: |
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
 
-after_test_script:
+after_test:
     - ps: |
         Invoke-AppveyorAfterTestTask -Author 'TheDscFan' -Owners 'The Awesome Dsc Inc.'
 
