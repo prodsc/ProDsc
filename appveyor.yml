@@ -4,7 +4,7 @@
 version: 1.0.{build}.0
 
 environment:
-  GitHubKey:
+  access_token:
     secure: 3lekYfC1aw4vvKr9EZ+0WrCdWrN/00te/NtKC3FUNDQeH8gjWT/i4B1FBxltbhC4
 
 skip_commits:
@@ -34,7 +34,7 @@ test_script:
     - ps: |
         Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
     - git config --global credential.helper store
-    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
+    - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
     - git config --global user.email "Administrator@PSDSC.Lab"
     - git config --global user.name "Administrator"
 
@@ -44,9 +44,7 @@ test_script:
 
 # scripts to run before deployment
 deploy_script:
-  - ps: |      
-      . .\Tests\build.ps1
-      Invoke-AppveyorAfterTestTask
+  - ps: Invoke-AppveyorAfterTestTask
 
 deploy:
   provider: GitHub
@@ -57,3 +55,15 @@ deploy:
   prerelease: false
   on:
     branch: master
+
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git checkout master
+  - git config --global user.email "Administrator@PSDSC.Lab"
+  - git config --global user.name "Administrator"
+  - git add --all
+  - ps: . .\Tests\build.ps1
+  - git commit -m "Update version of module manifest"
+  - git push origin master
+
