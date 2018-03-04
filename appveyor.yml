@@ -46,6 +46,7 @@ after_test:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git checkout master
+  - ps: Add-Content "\.gitignore" "DSCResource.Tests`nDSCResource.Tests\*`nTestResults.xml`n"
   - git config --global user.email "Administrator@PSDSC.Lab"
   - git config --global user.name "Administrator"
   - git add --all
