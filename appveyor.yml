@@ -3,10 +3,6 @@
 #---------------------------------#
 version: 1.0.{build}.0
 
-environment:
-  NuGetAPIKey:
-    secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
-
 skip_commits:
   files:
     - README.md
@@ -41,13 +37,3 @@ test_script:
 deploy_script:
   - ps: |
       Invoke-AppveyorAfterTestTask
-
-deploy:
-  provider: GitHub
-  auth_token:
-    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
-  artifact: /.*\.zip/
-  draft: false
-  prerelease: false
-  on:
-    branch: master
