@@ -3,11 +3,6 @@
 #---------------------------------#
 version: 1.0.{build}.0
 
-skip_commits:
-  files:
-    - README.md
-  message: /updated readme.*|update readme.*s|update docs.*|update version.*|update appveyor.*/
-
 install:
 	- git clone https://github.com/PowerShell/DscResource.Tests
 	
