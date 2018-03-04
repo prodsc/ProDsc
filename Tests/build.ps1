@@ -1,8 +1,10 @@
-﻿# This is where the module manifest lives
+﻿Write-Host 'In the build.ps1 script'
+
+# This is where the module manifest lives
 $manifestPath = '.\ProDsc.psd1'
 $Manifest = Test-ModuleManifest $manifestPath
 
-
+Write-Host 'Updating module manifest version'
 # Start by importing the manifest to determine the version, then add 1 to the revision
 $manifest = Test-ModuleManifest -Path $manifestPath
 [System.Version]$version = $manifest.Version
