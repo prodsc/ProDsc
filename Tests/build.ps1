@@ -14,3 +14,4 @@ Write-Output "New Version: $newVersion"
 
 # Update the manifest with the new version
 Update-ModuleManifest -Path $manifestPath -ModuleVersion $newVersion -Verbose
+
