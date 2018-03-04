@@ -4,7 +4,7 @@
 version: 1.0.{build}.0
 
 environment:
-  GitHubKey:
+  auth_token:
     secure: 3lekYfC1aw4vvKr9EZ+0WrCdWrN/00te/NtKC3FUNDQeH8gjWT/i4B1FBxltbhC4
 
 skip_commits:
@@ -51,7 +51,7 @@ deploy_script:
 deploy:
   provider: GitHub
   auth_token:
-    secure: $(GitHubKey)
+    secure: 3lekYfC1aw4vvKr9EZ+0WrCdWrN/00te/NtKC3FUNDQeH8gjWT/i4B1FBxltbhC4
   artifact: /.*\.zip/
   draft: false
   prerelease: false
