@@ -3,32 +3,51 @@
 #---------------------------------#
 version: 1.0.{build}.0
 
+environment:
+  NuGetAPIKey:
+    secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
+
+skip_commits:
+  files:
+    - README.md
+  message: /updated readme.*|update readme.*s|update docs.*|update version.*|update appveyor.*/
+
 install:
-	- git clone https://github.com/PowerShell/DscResource.Tests
-	
-	- ps: |
-	    Import-Module -Name "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
-	    Invoke-AppveyorInstallTask
-	
+  - git clone https://github.com/PowerShell/DscResource.Tests
+
+  - ps: |
+      Import-Module -Name "$env:APPVEYOR_BUILD_FOLDER\DscResource.Tests\AppVeyor.psm1"
+      Invoke-AppveyorInstallTask
+
 #---------------------------------#
 #      build configuration        #
 #---------------------------------#
-	
+
 build: false
-	
+
 #---------------------------------#
 #      test configuration         #
 #---------------------------------#
-	
+
 test_script:
-	- ps: |
-	    Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
-	
+  - ps: |
+      Invoke-AppveyorTestScriptTask -CodeCoverage -CodeCovIo -ExcludeTag @()
+
 #---------------------------------#
 #      deployment configuration   #
 #---------------------------------#
-	
+
 # scripts to run before deployment
 deploy_script:
-	- ps: |
-	    Invoke-AppveyorAfterTestTask
+  - ps: |
+      Invoke-AppveyorAfterTestTask
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: +e7Zn1hAWXP8+kYDqmXbt9FsltcBekPhwu62QnSmJ4TkQHxjIak2+fPj+zRqoBMj
+  artifact: /.*\.zip/
+  draft: false
+  prerelease: false
+  on:
+    branch: master
