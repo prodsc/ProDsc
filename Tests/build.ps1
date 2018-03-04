@@ -31,3 +31,5 @@ Catch
     Write-Warning "Publishing update $newVersion to GitHub failed."
     throw $_
 }
+
+Invoke-AppveyorAfterTestTask
