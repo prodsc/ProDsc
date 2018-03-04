@@ -42,6 +42,17 @@ test_script:
 #      deployment configuration   #
 #---------------------------------#
 
+after_test:
+  - git config --global credential.helper store
+  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git checkout master
+  - git config --global user.email "Administrator@PSDSC.Lab"
+  - git config --global user.name "Administrator"
+  - git add --all
+  - ps: . .\Tests\build.ps1
+  - git commit -m "Update version of module manifest"
+  - git push origin master
+
 # scripts to run before deployment
 deploy_script:
   - ps: Invoke-AppveyorAfterTestTask
@@ -56,14 +67,4 @@ deploy:
   on:
     branch: master
 
-on_success:
-  - git config --global credential.helper store
-  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  - git checkout master
-  - git config --global user.email "Administrator@PSDSC.Lab"
-  - git config --global user.name "Administrator"
-  - git add --all
-  - ps: . .\Tests\build.ps1
-  - git commit -m "Update version of module manifest"
-  - git push origin master
 
