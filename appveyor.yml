@@ -3,6 +3,10 @@
 #---------------------------------#
 version: 1.0.{build}.0
 
+environment:
+  NuGetApiKey:
+    secure: wpi18MwJmUzPpBwMUN2cQRoi8goB56SMcKechZqkqTA7hRxWochEk/Y7vIkev9yJ
+
 skip_commits:
   files:
     - README.md
@@ -37,3 +41,5 @@ test_script:
 deploy_script:
   - ps: |
       Invoke-AppveyorAfterTestTask
+
+      
