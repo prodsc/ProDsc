@@ -1,5 +1,4 @@
-﻿#This is the test target Resource function
-function Test-TargetResource
+﻿function Test-TargetResource
 {
     [OutputType([Boolean])]
     param
@@ -50,7 +49,6 @@ function Test-TargetResource
     }
 }
 
-#This is the Set target Resource function
 function Set-TargetResource
 {
     param
@@ -85,7 +83,6 @@ function Set-TargetResource
     }
 }
 
-#This is the Set target Resource function
 function Get-TargetResource
 {
     [OutputType([Hashtable])]

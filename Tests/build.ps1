@@ -34,4 +34,3 @@ Catch
     throw $_
 }
 
-Invoke-AppveyorAfterTestTask
