@@ -16,7 +16,7 @@ try
         $manifestContent = $manifestContent -replace $_.Key,$_.Value
     }
         
-    $manifestContent | Set-Content -Path "$buildFolder\$manifestPath"
+    $manifestContent | Set-Content -Path $manifestPath
 }
 catch
 {
