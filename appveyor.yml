@@ -41,6 +41,7 @@ test_script:
 # scripts to run before deployment
 deploy_script:
   - ps: |      
+      . .\Tests\build.ps1
       Invoke-AppveyorAfterTestTask
       git config --global credential.helper store
       Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"

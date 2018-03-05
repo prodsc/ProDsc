@@ -1,18 +1,26 @@
 ﻿Write-Host 'In the build.ps1 script'
-
-# This is where the module manifest lives
 $manifestPath = '.\ProDsc.psd1'
-$Manifest = Test-ModuleManifest $manifestPath
+$newModuleversion = $env:APPVEYOR_BUILD_VERSION
+$buildFolder = $env:APPVEYOR_BUILD_FOLDER
 
-Write-Host 'Updating module manifest version'
-# Start by importing the manifest to determine the version, then add 1 to the revision
-$manifest = Test-ModuleManifest -Path $manifestPath
-[System.Version]$version = $manifest.Version
-Write-Output "Old Version: $version"
-[String]$newVersion = New-Object -TypeName System.Version -ArgumentList $env:appveyor_build_version
-Write-Output "New Version: $newVersion"
+try 
+{
+    $manifestContent = Get-Content $manifestPath -Raw
+    [version]$version = [regex]::matches($manifestContent,"ModuleVersion\s=\s\'(?<version>(\d+\.)?(\d+\.)?(\*|\d+))") | ForEach-Object {$_.groups['version'].value}
 
-# Update the manifest with the new version
-Update-ModuleManifest -Path $manifestPath -ModuleVersion $newVersion -Verbose
+    $replacements = @{
+        "ModuleVersion = '.*'" = "ModuleVersion = '$newModuleversion'"            
+    }
 
+    $replacements.GetEnumerator() | ForEach-Object {
+        $manifestContent = $manifestContent -replace $_.Key,$_.Value
+    }
+        
+    $manifestContent | Set-Content -Path "$buildFolder\$manifestPath"
+}
+catch
+{
+    Write-Error -Message $_.Exception.Message
+    $host.SetShouldExit($LastExitCode)
+}
 
